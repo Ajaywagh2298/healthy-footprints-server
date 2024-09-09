@@ -3,13 +3,25 @@
   "builds": [
     {
       "src": "Server.js",
-      "use": "@now/node"
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "Server.js"
+      "dest": "Server.js",
+      "status": 500,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "error": {
+          "message": "500: INTERNAL_SERVER_ERROR",
+          "code": "FUNCTION_INVOCATION_FAILED",
+          "id": "bom1::6d4v8-1725912118020-2f3bc51fbb3a",
+          "suggestion": "If you are a visitor, contact the website owner or try again later. If you are the owner, learn how to fix the error and check the logs."
+        }
+      }
     }
   ]
 }
