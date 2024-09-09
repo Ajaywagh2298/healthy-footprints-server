@@ -21,15 +21,15 @@ connectDB();
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
-// app.use((err, req, res, next) => {
-//     const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-//     res.status(statusCode);
-//     res.json({
-//       message: err.message,
-//       stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-//     });
-// });
+app.use(cors({
+    origin: 'https://healthy-footprints-web.vercel.app',
+    credentials: true,
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+}));
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
 
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
