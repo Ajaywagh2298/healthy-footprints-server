@@ -87,7 +87,7 @@ exports.getDashboardMetrics = async (req, res) => {
         // Calculate the total stock quantity and value
         const stocks = await Stock.find();
         const totalStockQuantity = stocks.reduce((total, stock) => total + stock.quantity, 0);
-        const totalStockValue = stocks.reduce((total, stock) => total + (stock.quantity * stock.valuePerUnit), 0); // Assuming you have a valuePerUnit field
+        const totalStockValue = stocks.reduce((total, stock) => total + (stock.quantity * stock.totalCost), 0); // Assuming you have a valuePerUnit field
 
         // Return the metrics
         res.json({
@@ -148,6 +148,16 @@ exports.deleteUserLogin = async (req, res) => {
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
         console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await UserLogin.find(); // Fetch all users from the UserLogin model
+        res.status(200).json(users); // Respond with the list of users
+    } catch (error) {
+        console.error('Error fetching users:', error);
         res.status(500).json({ message: 'Server Error' });
     }
 };

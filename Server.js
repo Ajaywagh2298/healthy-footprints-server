@@ -14,6 +14,8 @@ const patientImageRoutes = require('./routes/patientImageRoutes');
 const dietPlanRoutes = require('./routes/dietPlanRoutes');
 const medicinePlanRoutes = require('./routes/medicinePlanRoutes');
 const stockRoutes = require('./routes/stockRoutes');
+const ItemRoutes = require('./routes/itemRoutes')
+const InventoryUseLogs = require('./routes/inventoryRoute')
 
 connectDB();
 const app = express();
@@ -37,6 +39,8 @@ app.use('/api/patientImages', patientImageRoutes);
 app.use('/api/dietPlans', dietPlanRoutes);
 app.use('/api/medicinePlans', medicinePlanRoutes);
 app.use('/api/stocks', stockRoutes);
+app.use('/api/items', ItemRoutes);
+app.use('/api/inventory',InventoryUseLogs)
 
 
 const PORT = process.env.HOST_PORT || 5000;

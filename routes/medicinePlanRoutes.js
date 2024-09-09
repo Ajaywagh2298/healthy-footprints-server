@@ -4,7 +4,7 @@ const medicinePlanController = require('../controllers/medicinePlanController');
 
 router.post('/', medicinePlanController.createMedicinePlan);
 router.get('/', medicinePlanController.getMedicinePlans);
-router.put('/:id', medicinePlanController.updateMedicinePlan);
-router.delete('/:id', medicinePlanController.deleteMedicinePlan);
+router.put('/:uid', medicinePlanController.updateMedicinePlan);
+router.delete('/:uid', medicinePlanController.deleteMedicinePlan);
 
 module.exports = router;

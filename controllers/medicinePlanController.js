@@ -16,7 +16,7 @@ module.exports = {
 
     getMedicinePlans: async (req, res) => {
         try {
-            const medicinePlans = await MedicinePlan.find({ patientUid: req.query.patientUid });
+            const medicinePlans = await MedicinePlan.find();
             res.status(200).json(medicinePlans);
         } catch (error) {
             res.status(400).json({ message: 'Error fetching medicine plans', error });

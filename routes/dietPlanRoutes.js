@@ -4,7 +4,7 @@ const dietPlanController = require('../controllers/dietPlanController');
 
 router.post('/', dietPlanController.createDietPlan);
 router.get('/', dietPlanController.getDietPlans);
-router.put('/:id', dietPlanController.updateDietPlan);
-router.delete('/:id', dietPlanController.deleteDietPlan);
+router.put('/:uid', dietPlanController.updateDietPlan);
+router.delete('/:uid', dietPlanController.deleteDietPlan);
 
 module.exports = router;

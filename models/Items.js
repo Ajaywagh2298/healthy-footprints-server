@@ -1,24 +1,36 @@
 const mongoose = require('mongoose');
 
-const StockSchema = new mongoose.Schema({
+const ItemsSchema = new mongoose.Schema({
     uid: { type: String, required: true, unique: true },
-    batchName: {
+    itemName: {
         type: String,
-        require: true
+        required: true
     },
-    batchDate: {
-        type: Date,
-        require: true
-    },
-    itemUid: {
+    itemCode: {
         type: String,
+        required: true
+    },
+    descript: {
+        type: String,
+    },
+    itemType: {
+        type: String,
+    },
+    cost: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    stockLimit : {
+        type: Number,
+        default: 0
     },
     quantity: {
         type: Number,
         required: true,
         default: 0
     },
-    costPerUnit: {
+    totalQuantity : {
         type: Number,
         default: 0
     },
@@ -26,19 +38,9 @@ const StockSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    type: {
-        type: String,
-        required: true
-    },
-    expiredDate: {
-        type: Date
-    },
-    stockEndDate: {
-        type: Date
-    },
     staffUid: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date }
 })
 
-module.exports = mongoose.model('stocks', StockSchema);
+module.exports = mongoose.model('Items', ItemsSchema);

@@ -39,7 +39,7 @@ exports.deleteReminder = async (req, res) => {
     const { uid } = req.params;
 
     try {
-        const reminder = await Reminder.findByIdAndDelete(id);
+        const reminder = await Reminder.findByIdAndDelete(uid); // Corrected to use uid directly
         if (!reminder) return res.status(404).json({ message: 'Reminder not found' });
         res.status(200).json({ message: 'Reminder deleted successfully' });
     } catch (error) {
