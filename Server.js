@@ -17,7 +17,7 @@ const stockRoutes = require('./routes/stockRoutes');
 const ItemRoutes = require('./routes/itemRoutes');
 const InventoryUseLogsRoute = require('./routes/inventoryRoute');
 
-connectDB();
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -25,6 +25,8 @@ app.use(cors({
     origin: 'https://healthy-footprints-web.vercel.app',
     credentials: true,
 }));
+
+connectDB();
 
 app.get('/', (req, res) => {
     res.status(200).send('Hey this is my API running 🥳');
