@@ -10,7 +10,7 @@ const s3 = new AWS.S3({
 });
 
 // Multer middleware for image upload
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ dest: '/tmp/' });
 
 exports.uploadImage = upload.single('image');
 
