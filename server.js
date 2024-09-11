@@ -20,7 +20,6 @@ const InventoryUseLogsRoute = require('./routes/inventoryRoute');
 
 const app = express();
 
-app.use(bodyParser.json());
 const allowedOrigins = ['https://healthy-footprints-web.vercel.app'];
 
 const corsOptions = {
@@ -37,7 +36,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use(bodyParser.json());
 connectDB();
 
 app.get('/', (req, res) => {
