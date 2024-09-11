@@ -33,7 +33,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, // If you need to allow cookies, set this to true
-  allowedHeaders: ['Content-Type', 'Authorization'], // Ensure these headers are allowed
+  allowedHeaders: ['Content-Type', 'Authorization','Access-Control-Allow-Origin'], // Ensure these headers are allowed
 };
 
 app.use(cors(corsOptions)); // Apply CORS middleware
