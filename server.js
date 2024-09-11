@@ -21,7 +21,19 @@ const InventoryUseLogsRoute = require('./routes/inventoryRoute');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+const allowedOrigins = ['https://healthy-footprints-web.vercel.app'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 connectDB();
 
