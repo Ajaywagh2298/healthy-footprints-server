@@ -111,18 +111,21 @@ exports.getAuthUserCheck = async (req, res) => {
     }
 
     try {
-        const user = await UserLogin.findOne({ staffUid: uid });
+        const users = await UserLogin.find({ staffUid: uid }); // Find all matching entries
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });  // Changed status code to 404
+        if (!users || users.length === 0) { // Check if no users found
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        // Ensure that sensitive data (like tokens) is handled securely
-        res.status(200).json({
+        // Prepare an array of user data to be sent in the response
+        const userDataArray = users.map(user => ({
             uid: user.uid,
             token: user.token,  // Ensure it's safe to send this back
             logout: user.logout
-        });
+        }));
+
+        res.status(200).json(userDataArray); // Send the array of user objects
+
     } catch (error) {
         console.error('Error fetching user:', error);
         res.status(500).json({ message: 'Server Error' });
