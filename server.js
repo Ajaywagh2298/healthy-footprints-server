@@ -6,7 +6,7 @@ const cors = require('cors');
 
 dotenv.config();
 
-const authRoutes = require('./routes/authRoutes');s
+const authRoutes = require('./routes/authRoutes');
 const patientRoutes = require('./routes/patientRoutes');
 const dailyRecordRoutes = require('./routes/dailyRecordRoutes');
 const reminderRoutes = require('./routes/reminderRoutes');
