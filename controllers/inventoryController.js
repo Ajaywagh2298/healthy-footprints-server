@@ -8,34 +8,39 @@ module.exports = {
         const uid = uuidv4();
         try {
             req.body.uid = uid;
-            const logBody = req.body;
+            const logBodies = req.body;
+            if (logBodies.inventories && Array.isArray(logBodies.inventories)) {
+                for(let logBody of logBodies.inventories) {
+                    if (!logBody.itemUid) {
+                        return res.status(400).json({
+                            message: 'Error creating inventory use log',
+                            error: 'itemUid is required.'
+                        });
+                    }
+                    const inventoryUseLog = new InventoryUseLogs({
+                        uid: uid,
+                        itemUid: logBody.itemUid,
+                        useDate: logBodies.useDate,
+                        useTime: logBodies.useTime,
+                        Note: logBody.Note,
+                        quantity: Number(logBody.quantity), 
+                        staffUid: logBodies.staffUid,
+                        availableQuantity : Number(logBody.availableQuantity),
+                        totalQuantity : Number(logBody.totalQuantity)
+                    });
+        
+                    await inventoryUseLog.save();
+        
+                    const item = await Items.findOne({ uid: logBody.itemUid }); 
+                    if (item) {
+                        item.quantity = (item.quantity || 0) + Number(logBody.quantity); 
+                        item.cost = (item.totalCost || 0) - (Number(logBody.quantity) * (item.cost || 0)); 
+                        await item.save();
+                    }
+        
 
-            if (!logBody.itemUid) {
-                return res.status(400).json({
-                    message: 'Error creating inventory use log',
-                    error: 'itemUid is required.'
-                });
+                }
             }
-
-            const inventoryUseLog = new InventoryUseLogs({
-                uid: uid,
-                itemUid: logBody.itemUid,
-                useDate: logBody.useDate,
-                useTime: logBody.useTime,
-                Note: logBody.Note,
-                quantity: Number(logBody.quantity), 
-                staffUid: logBody.staffUid,
-            });
-
-            await inventoryUseLog.save();
-
-            const item = await Items.findOne({ uid: logBody.itemUid }); 
-            if (item) {
-                item.totalQuantity = (item.quantity || 0) + Number(logBody.quantity); 
-                item.totalCost = (item.cost || 0) + (Number(logBody.quantity) * (item.cost || 0)); 
-                await item.save();
-            }
-
             res.status(201).json({ message: 'Inventory use log created successfully' }); 
         } catch (error) {
             res.status(400).json({ message: 'Error creating inventory use log', error: error.message }); 

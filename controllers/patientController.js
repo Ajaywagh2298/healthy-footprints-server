@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 exports.createPatient = async (req, res) => {
     const { name, dateOfBirth, weight, height, bloodGroup, address, healthStatus ,staffUid} = req.body;
     const uid = uuidv4();
+    const _id = uuidv4()
     try {
-        const newPatient = new Patient({ uid, name, dateOfBirth, weight, height, bloodGroup, address, healthStatus, staffUid });
+        const newPatient = new Patient({_id, uid, name, dateOfBirth, weight, height, bloodGroup, address, healthStatus, staffUid });
         await newPatient.save();
         res.status(201).json({ message: 'Patient created successfully' });
     } catch (error) {

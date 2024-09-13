@@ -42,9 +42,11 @@ module.exports = {
 
                     const item = await Items.findOne({ uid: st.itemUid }); // Use findOne instead of find
                     if (item) {
-                        item.totalQuantity = (item.totalQuantity || 0) + Number(st.quantity); // Ensure totalQuantity is initialized
-                        item.totalCost = (item.totalCost || 0) + Number(st.totalCost); // Ensure totalCost is initialized
-                        await item.save(); // Save the updated item
+                        item.totalQuantity = ((item.totalQuantity || 0) - (item.quantity || 0) ) + Number(st.quantity); 
+                        item.totalCost = ((item.totalCost || 0) - (item.cost || 0)) + Number(st.totalCost); 
+                        item.quantity = 0;
+                        item.cost = 0;
+                        await item.save();
                     }
                 }
             }

@@ -7,7 +7,7 @@ const InventoryUseLogsSchema = new mongoose.Schema({
         required: true
     },
     useDate : {
-        type: String,
+        type: Date,
     },
     useTime : {
         type: String,
@@ -18,6 +18,14 @@ const InventoryUseLogsSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: true,
+        default: 0
+    },
+    availableQuantity : {
+        type: Number,
+        default: 0
+    },
+    totalQuantity : {
+        type: Number,
         default: 0
     },
     staffUid: { type: String },
