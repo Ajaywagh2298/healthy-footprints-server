@@ -5,13 +5,13 @@ const { isValidObjectId } = require('mongoose'); // Ensure isValidObjectId is im
 
 module.exports = {
     createStock: async (req, res) => {
-        const uid = uuidv4();
+
         try {
-            req.body.uid = uid;
             const stockBody = req.body;
 
             if (stockBody.stocks && Array.isArray(stockBody.stocks)) {
                 for (const st of stockBody.stocks) {
+                    const uid = uuidv4();
                     if (!st.itemUid) {
                         return res.status(400).json({
                             message: 'Error creating stock',
